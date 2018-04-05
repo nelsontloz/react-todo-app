@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Item from "./item";
-import AddItem from "./addItem";
+import Item from './item';
+import AddItem from './addItem';
 
 class ItemList extends Component {
 
@@ -10,6 +10,7 @@ class ItemList extends Component {
             items: ['Go home', 'Play Dota', 'Win a game']
         };
         this.onDeleteTask = this.onDeleteTask.bind(this);
+        this.onAddItem = this.onAddItem.bind(this);
     }
 
     onDeleteTask(taskToDelete) {
@@ -30,12 +31,18 @@ class ItemList extends Component {
         ));
     }
 
+    onAddItem(newItemName) {
+        this.setState({
+            items: [...this.state.items, newItemName]
+        });
+    }
+
     render() {
         return (
             <div>
                 <div className="panel panel-default">
                     <div className="panel-body">
-                        <AddItem/>
+                        <AddItem onAddItem={this.onAddItem}/>
                     </div>
                 </div>
                 <div className="row">
