@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import shortid from 'shortid';
 import Item from './item';
 import AddItem from './addItem';
 
@@ -7,15 +8,21 @@ class ItemList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: ['Go home', 'Play Dota', 'Win a game']
+            items: ['Go home', 'Play Dota', 'Win a game'].map(value => {
+                return {
+                    id: shortid.generate(),
+                    name: value,
+                    isDone: false
+                }
+            })
         };
         this.onDeleteTask = this.onDeleteTask.bind(this);
         this.onAddItem = this.onAddItem.bind(this);
     }
 
-    onDeleteTask(taskToDelete) {
-        let filteredTasks = this.state.items.filter(taskName => {
-            return taskName !== taskToDelete;
+    onDeleteTask(itemToDelete) {
+        let filteredTasks = this.state.items.filter(itemName => {
+            return itemName.id !== itemToDelete.id;
         });
 
         this.setState({
@@ -24,16 +31,20 @@ class ItemList extends Component {
     }
 
     drawItems() {
-        return this.state.items.map(taskName => (
-            <div key={taskName} className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                <Item taskName={taskName} onDelete={this.onDeleteTask}/>
+        return this.state.items.map((item) => (
+            <div key={item.id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <Item item={item} onDelete={this.onDeleteTask}/>
             </div>
         ));
     }
 
     onAddItem(newItemName) {
         this.setState({
-            items: [...this.state.items, newItemName]
+            items: [...this.state.items, {
+                id: shortid.generate(),
+                name: newItemName,
+                isDone: false
+            }]
         });
     }
 
@@ -45,8 +56,9 @@ class ItemList extends Component {
                         <AddItem onAddItem={this.onAddItem}/>
                     </div>
                 </div>
+
                 <div className="row">
-                    {this.drawItems(3)}
+                    {this.drawItems()}
                 </div>
             </div>
         );
