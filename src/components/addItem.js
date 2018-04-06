@@ -9,6 +9,9 @@ class AddItem extends Component {
     }
 
     addItem() {
+        if (this.state.itemName === '') {
+            return;
+        }
         this.props.onAddItem(this.state.itemName);
         this.setState({ itemName: '' });
     }

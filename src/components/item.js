@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import AddItem from "./addItem";
+import './item.css';
 
 class Item extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            name: props.item.name,
             editing: false,
             isDone: props.item.isDone
         };
@@ -20,8 +21,11 @@ class Item extends Component {
     }
 
     editTask() {
+        if (this.state.editing) {
+            this.props.item.name = this.state.name;
+        }
         this.setState({
-            editing: true
+            editing: !this.state.editing
         });
     }
 
@@ -33,22 +37,24 @@ class Item extends Component {
         });
     }
 
-    handleUpdateItem(itemName) {
+    handleUpdateItem(event) {
         this.setState({
-            editing: false
+            name: event.target.value
         });
-        this.props.item.name = itemName;
     }
 
     drawContent() {
         return (
-            this.state.editing ? <AddItem onAddItem={this.handleUpdateItem}/> :
-                <div className="checkbox-inline">
-                    <label>
-                        <input type="checkbox" value="" onChange={this.handleChecked}/>
-                        <span hidden={this.state.isDone}>{this.props.item.name}</span>
-                        <s hidden={!this.state.isDone}>{this.props.item.name}</s>
-                    </label>
+            this.state.editing ? <div>
+                    <textarea value={this.state.name} onChange={this.handleUpdateItem}/>
+                </div>
+                :
+                <div>
+                    <input className="mark-as-done" type="checkbox" value="" onChange={this.handleChecked}/>
+                    <div hidden={this.state.isDone}>{this.state.name}</div>
+                    <div hidden={!this.state.isDone}>
+                        <s>{this.state.name}</s>
+                    </div>
                 </div>
         );
     }
@@ -57,11 +63,11 @@ class Item extends Component {
         return (
             <div className={"panel panel-default"}>
                 <div className="panel-body">
-                    <button onClick={this.deleteTask} type="button" className="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <button onClick={this.deleteTask} type="button" className="btn btn-danger btn-sm">
+                        <span className="glyphicon glyphicon-remove"/>
                     </button>
-                    <button onClick={this.editTask} type="button" className="close" data-dismiss="alert" aria-label="Close">
-                        <span className="glyphicon glyphicon-pencil" aria-hidden="true"/>
+                    <button onClick={this.editTask} type="button" className="btn btn-default btn-sm">
+                        <span className={this.state.editing ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-pencil"}/>
                     </button>
                     {this.drawContent()}
                 </div>

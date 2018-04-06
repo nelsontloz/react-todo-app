@@ -1,0 +1,7 @@
+.btn {
+    float: right;
+}
+
+input[type="checkbox"].mark-as-done {
+    margin: 8px 0;
+}
