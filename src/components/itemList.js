@@ -16,11 +16,9 @@ class ItemList extends Component {
                 }
             })
         };
-        this.onDeleteTask = this.onDeleteTask.bind(this);
-        this.onAddItem = this.onAddItem.bind(this);
     }
 
-    onDeleteTask(itemToDelete) {
+    onDeleteTask = (itemToDelete) => {
         let filteredTasks = this.state.items.filter(itemName => {
             return itemName.id !== itemToDelete.id;
         });
@@ -28,17 +26,17 @@ class ItemList extends Component {
         this.setState({
             items: filteredTasks
         });
-    }
+    };
 
-    drawItems() {
+    drawItems = () => {
         return this.state.items.map((item) => (
             <div key={item.id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <Item item={item} onDelete={this.onDeleteTask}/>
             </div>
         ));
-    }
+    };
 
-    onAddItem(newItemName) {
+    onAddItem = (newItemName) => {
         this.setState({
             items: [...this.state.items, {
                 id: shortid.generate(),
@@ -46,7 +44,7 @@ class ItemList extends Component {
                 isDone: false
             }]
         });
-    }
+    };
 
     render() {
         return (

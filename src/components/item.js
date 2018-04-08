@@ -10,40 +10,36 @@ class Item extends Component {
             editing: false,
             isDone: props.item.isDone
         };
-        this.deleteTask = this.deleteTask.bind(this);
-        this.editTask = this.editTask.bind(this);
-        this.handleChecked = this.handleChecked.bind(this);
-        this.handleUpdateItem = this.handleUpdateItem.bind(this);
     }
 
-    deleteTask() {
+    deleteTask = () => {
         this.props.onDelete(this.props.item);
-    }
+    };
 
-    editTask() {
+    editTask = () => {
         if (this.state.editing) {
             this.props.item.name = this.state.name;
         }
         this.setState({
             editing: !this.state.editing
         });
-    }
+    };
 
-    handleChecked(event) {
+    handleChecked = (event) => {
         let isChecked = event.target.checked;
         this.props.item.isDone = isChecked;
         this.setState({
             isDone: isChecked
         });
-    }
+    };
 
-    handleUpdateItem(event) {
+    handleUpdateItem = (event) => {
         this.setState({
             name: event.target.value
         });
-    }
+    };
 
-    drawContent() {
+    drawContent = () => {
         return (
             this.state.editing ? <div>
                     <textarea value={this.state.name} onChange={this.handleUpdateItem}/>
@@ -57,7 +53,7 @@ class Item extends Component {
                     </div>
                 </div>
         );
-    }
+    };
 
     render() {
         return (

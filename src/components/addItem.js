@@ -4,21 +4,19 @@ class AddItem extends Component {
     constructor(props) {
         super(props);
         this.state = { itemName: '' };
-        this.addItem = this.addItem.bind(this);
-        this.handleChange = this.handleChange.bind(this);
     }
 
-    addItem() {
+    addItem = () => {
         if (this.state.itemName === '') {
             return;
         }
         this.props.onAddItem(this.state.itemName);
         this.setState({ itemName: '' });
-    }
+    };
 
-    handleChange(event) {
+    handleChange = (event) => {
         this.setState({ itemName: event.target.value });
-    }
+    };
 
     render() {
         return (
