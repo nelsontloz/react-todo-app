@@ -60,7 +60,7 @@ class Item extends Component {
             <div className={"panel panel-default"}>
                 <div className="panel-body">
                     <button onClick={this.deleteTask} type="button" className="btn btn-danger btn-sm">
-                        <span className="glyphicon glyphicon-remove"/>
+                        <span>Remove</span>
                     </button>
                     <button onClick={this.editTask} type="button" className="btn btn-default btn-sm">
                         <span className={this.state.editing ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-pencil"}/>
