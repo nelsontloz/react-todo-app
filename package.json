@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://nelsontloz.github.io/todo-dist/",
   "dependencies": {
+    "axios": "^0.18.0",
     "bootstrap": "^3.3.7",
     "react": "^16.3.1",
     "react-bootstrap": "^0.32.1",

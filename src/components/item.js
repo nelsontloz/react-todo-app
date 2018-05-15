@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './item.css';
+import shortid from "shortid";
+import axios from "axios/index";
 
 class Item extends Component {
 
@@ -19,6 +21,18 @@ class Item extends Component {
     editTask = () => {
         if (this.state.editing) {
             this.props.item.name = this.state.name;
+        }
+
+        if (this.state.editing) {
+            axios.upt(`http://localhost:3001/items`, {content: newItemName}).then((response) => {
+                this.setState({
+                    items: [...this.state.items, {
+                        id: shortid.generate(),
+                        name: newItemName,
+                        isDone: false
+                    }]
+                });
+            });
         }
         this.setState({
             editing: !this.state.editing

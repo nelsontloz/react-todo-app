@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import shortid from 'shortid';
 import Item from './item';
 import AddItem from './addItem';
+import axios from "axios/index";
 
 class ItemList extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            items: ['Go home', 'Play Dota', 'Win a game'].map(value => {
+            items: props.items.map(value => {
                 return {
-                    id: shortid.generate(),
-                    name: value,
+                    id: value._id,
+                    name: value.content,
                     isDone: false
                 }
             })
@@ -37,12 +38,14 @@ class ItemList extends Component {
     };
 
     onAddItem = (newItemName) => {
-        this.setState({
-            items: [...this.state.items, {
-                id: shortid.generate(),
-                name: newItemName,
-                isDone: false
-            }]
+        axios.post(`http://localhost:3001/items`, {content: newItemName}).then((response) => {
+            this.setState({
+                items: [...this.state.items, {
+                    id: shortid.generate(),
+                    name: newItemName,
+                    isDone: false
+                }]
+            });
         });
     };
 
