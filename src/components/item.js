@@ -42,7 +42,15 @@ class Item extends Component {
     drawContent = () => {
         return (
             this.state.editing ? <div>
-                    <textarea value={this.state.name} onChange={this.handleUpdateItem}/>
+                    <textarea className={'item-edit'} value={this.state.name} onChange={this.handleUpdateItem} ref={
+                        ref => {
+                            if (!ref) return;
+                            let isActive = ref.activeElement;
+                            if (!isActive) {
+                                ref.focus();
+                            }
+                        }
+                    }/>
                 </div>
                 :
                 <div>

@@ -6,12 +6,14 @@ class AddItem extends Component {
         this.state = { itemName: '' };
     }
 
-    addItem = () => {
+    addItem = (event) => {
+        event.preventDefault();
         if (this.state.itemName === '') {
             return;
         }
         this.props.onAddItem(this.state.itemName);
         this.setState({ itemName: '' });
+        this._input.focus();
     };
 
     handleChange = (event) => {
@@ -20,12 +22,18 @@ class AddItem extends Component {
 
     render() {
         return (
-            <div className="input-group">
-                <input onChange={this.handleChange} value={this.state.itemName} type="text" className="form-control" placeholder="Task Name"/>
-                <span className="input-group-btn">
-                    <button onClick={this.addItem} className="btn btn-primary" type="button">Add</button>
-                </span>
-            </div>
+            <form onSubmit={this.addItem}>
+                <div className="input-group">
+                    <input onChange={this.handleChange}
+                           ref={(el) => {
+                               this._input = el;
+                           }}
+                           value={this.state.itemName} type="text" className="form-control" placeholder="Task Name"/>
+                    <span className="input-group-btn">
+                        <button className="btn btn-primary" type="submit">Add</button>
+                    </span>
+                </div>
+            </form>
         );
     }
 }

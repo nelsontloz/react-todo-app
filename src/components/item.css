@@ -5,3 +5,9 @@
 input[type="checkbox"].mark-as-done {
     margin: 9px 0;
 }
+
+.item-edit {
+    width: 100%;
+    border: none;
+    resize: none;
+}
